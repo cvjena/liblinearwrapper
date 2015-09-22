@@ -23,7 +23,7 @@ function initWorkspaceLibLinear
     %% add paths which come with this repository
     
     if strcmp( getenv('USER'), 'freytag')
-        LIBLINEARDIR    = '~/code/3rdParty/liblinear-1.93/matlab/';   
+        LIBLINEARDIR    = '/home/freytag/code/3rdParty/liblinear-1.93/matlab/';   
     else
         fprintf('Unknown user %s and unknown default settings', getenv('USER') ); 
     end    
