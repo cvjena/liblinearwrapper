@@ -14,7 +14,8 @@ function svmmodel = liblinear_train_regression ( labels, feat, settings )
 %  svmmodel -- resulting model
 %
 % date: 30-04-2014 ( dd-mm-yyyy )
-% author: Alexander Freytag
+% last modified: 22-10-2015
+% author: Alexander Freytag, Christoph Käding
 
     if ( nargin < 3 ) 
         settings = [];
@@ -35,6 +36,14 @@ function svmmodel = liblinear_train_regression ( labels, feat, settings )
     % do we want to use an offset for the hyperplane?
     if ( getFieldWithDefault ( settings, 'b_addOffset', false) )
         libsvm_options = sprintf('%s -B 1', libsvm_options);    
+    end
+    
+    % add multithreading
+    % NOTE: - requires liblinear-multicore
+    %       - supports only -s 0, -s 2, or -s 11 (so far)
+    i_numThreads = getFieldWithDefault ( settings, 'i_numThreads', 1);
+    if i_numThreads > 1
+        libsvm_options = sprintf('%s -n %d', libsvm_options, i_numThreads);
     end
     
     % which solver to use

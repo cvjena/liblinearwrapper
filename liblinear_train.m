@@ -15,7 +15,8 @@ function svmmodel = liblinear_train ( labels, feat, settings )
 %              svmtrain of the corresponding 1-vs-all-problem
 %
 % date: 30-04-2014 ( dd-mm-yyyy )
-% author: Alexander Freytag
+% last modified: 22-10-2015
+% author: Alexander Freytag, Christoph Käding
 
     if ( nargin < 3 ) 
         settings = [];
@@ -38,6 +39,14 @@ function svmmodel = liblinear_train ( labels, feat, settings )
         libsvm_options = sprintf('%s -B 1', libsvm_options);    
     end
     
+    % add multithreading
+    % NOTE: - requires liblinear-multicore
+    %       - supports only -s 0, -s 2, or -s 11 (so far)
+    i_numThreads = getFieldWithDefault ( settings, 'i_numThreads', 1);
+    if i_numThreads > 1
+        libsvm_options = sprintf('%s -n %d', libsvm_options, i_numThreads);
+    end
+        
     % which solver to use
     % copied from the liblinear manual:
 %       for multi-class classification
