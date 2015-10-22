@@ -71,7 +71,7 @@ function svmmodel = liblinear_train ( labels, feat, settings )
         svmmodel = train( labels, feat, libsvm_options );
     else
         svmmodel = cell( i_numClasses,1);
-        for k=1:length(i_classesToRun)
+        for k=1:i_numClasses
             yBin        = 2*double( labels == uniqueLabels( k ) )-1;
             
             fraction = double(sum(yBin==1))/double(numel(yBin));
