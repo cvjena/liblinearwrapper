@@ -24,6 +24,8 @@ function initWorkspaceLibLinear
     
     if strcmp( getenv('USER'), 'freytag')
         LIBLINEARDIR    = '/home/freytag/code/3rdParty/liblinear-1.93/matlab/';   
+    elseif strcmp( getenv('USER'), 'kaeding')
+        LIBLINEARDIR    = '/home/kaeding/lib/liblinear-multicore-2.1-2/matlab/';   
     else
         fprintf('Unknown user %s and unknown default settings', getenv('USER') ); 
     end    
