@@ -24,6 +24,8 @@ function initWorkspaceLibLinear
     
     if strcmp( getenv('USER'), 'freytag')
         LIBLINEARDIR    = '/home/freytag/code/3rdParty/liblinear-1.93/matlab/';   
+    elseif strcmp( getenv('USER'), 'rodner')
+        LIBLINEARDIR    = '/home/freytag/code/3rdParty/liblinear-1.93/matlab/';
     else
         fprintf('Unknown user %s and unknown default settings', getenv('USER') ); 
     end    
@@ -40,7 +42,14 @@ function initWorkspaceLibLinear
     b_overwrite             = true;
     s_pathMisc              = fullfile(pwd, 'misc');
     addPathSafely ( s_pathMisc, b_recursive, b_overwrite )
-    clear ( 's_pathMisc' );        
+    clear ( 's_pathMisc' );      
+
+    % for binary evaluation metrics such as auc during cross val
+    b_recursive             = true; 
+    b_overwrite             = true;
+    s_pathMisc              = fullfile(pwd, 'binary');
+    addPathSafely ( s_pathMisc, b_recursive, b_overwrite )
+    clear ( 's_pathMisc' );     
         
     %% 3rd party, untouched
     
